@@ -11,10 +11,10 @@
 //              return callback(null, myPredictionFunction);
 //
 //   The prediction function should take one argument and return one value.
+//   The value should be 1 if the passenger survived, zero otherwise.
 //
-//   As an example, the train function below just looks at whether the
-//   passenger is a male or female to make a prediction.
-//   It does not even use the training data.
+//   As an example, the train function below always predicts that a passenger
+//   always dies. It does not even use the training data.
 
 module.exports.train = function(trainData, callback) {
   var predict = function(row) {
