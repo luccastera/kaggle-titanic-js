@@ -1,0 +1,13 @@
+{
+  "name": "kaggle-titanic-js",
+  "description": "Solve Kaggle's Titanic competition using Javascript.",
+  "version": "0.0.1",
+  "engines": {
+    "node": "0.12.10"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "csv-parse": "1.0.1",
+    "async": "1.5.2"
+  }
+}
