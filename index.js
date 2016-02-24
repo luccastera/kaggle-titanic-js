@@ -44,11 +44,13 @@ async.waterfall([
   // Step 4: use your new prediction function on the test data
   function (predict, callback) {
 
-    var results = [];
+    var results = [['PassengerId', 'Survived']];
 
     console.log('Making predictions...');
     testData.forEach(function(row, index) {
-      results.push ( [ testData[index][0], predict(testData[index]) ] );
+      if (index !== 0) {
+        results.push ( [ testData[index][0], predict(testData[index]) ] );
+      }
     });
 
     return callback(null, results);
@@ -58,7 +60,7 @@ async.waterfall([
   function (results, callback) {
     console.log('Writing results to ./data/results.csv ...');
     var wstream = fs.createWriteStream('./data/results.csv');
-    results.forEach(function(row) {
+    results.forEach(function(row, index) {
       wstream.write(row.join(','));
       wstream.write('\n');
     });
