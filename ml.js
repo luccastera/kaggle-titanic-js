@@ -16,10 +16,51 @@
 //   As an example, the train function below always predicts that a passenger
 //   always dies. It does not even use the training data.
 
+
+var brain = require('brain'),
+    net = new brain.NeuralNetwork({
+      hiddenLayers: [4],
+      learningRate: 0.6
+    });
+
+
 module.exports.train = function(trainData, callback) {
+
+  var cleanedData = [];
+
+  trainData.forEach(function(row, index) {
+    if (index !== 0) {
+      cleanedData.push(
+        {
+          input: [
+            (row[2] / 3), // class
+            row[4] == 'male' ? 0 : 1, // Sex
+            (row[5] == '' ? 40 : row[5]) / 80 // Age
+          ],
+          output: [trainData[index][1]]
+        }
+      );
+    }
+  });
+
+  //console.log('brain input = ', cleanedData);
+
+  var trainingInfo = net.train(cleanedData, {
+    iterations: 50000
+  });
+
   var predict = function(row) {
-    return 0;
+    var input = [
+      (row[1] / 3),
+      row[3] == 'male' ? 0 : 1,
+      (row[4] == '' ? 40 : row[4]) / 80
+    ];
+    var output = net.run(input);
+    console.log(input, ' => ', output);
+    return (output > 0.95) ? 1 : 0;
   };
+
+  console.log('trainingInfo', trainingInfo);
 
   return callback(null, predict);
 };

@@ -8,6 +8,7 @@
   "main": "index.js",
   "dependencies": {
     "csv-parse": "1.0.1",
-    "async": "1.5.2"
+    "async": "1.5.2",
+    "brain": "0.7.0"
   }
 }
